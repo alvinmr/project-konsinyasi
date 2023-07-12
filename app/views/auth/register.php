@@ -9,7 +9,7 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- Google Fonts -->
@@ -23,7 +23,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-lg-5">
             <div class="logo">
-                <img src="assets/Logo Title Website.jpg" alt />
+                <img src="<?=BASEURL?>/assets/Logo Title Website.jpg" alt />
             </div>
             <div class="logo-container">
                 <ul>
@@ -46,7 +46,7 @@
         </div>
     </nav>
     <!-- Section: Design Block -->
-    <section class="">
+    <section>
         <!-- Jumbotron -->
         <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
             <div class="container">
@@ -62,18 +62,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <form method="POST" action="<?= BASEURL ?>/auth/registerProcess" enctype="multipart/form-data">
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <div class="form-group col-12">
                                             <label for="name">Name</label>
                                             <input id="name" type="text" class="form-control" name="nama" autofocus>
                                         </div>
-                                        <div class="form-group col-12 mt-3">
+                                        <div class="form-group col-12">
                                             <label for="email">Email</label>
                                             <input id="email" type="email" class="form-control" name="email">
                                         </div>
                                     </div>
 
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <div class="form-group col-6">
                                             <label for="alamat">Alamat</label>
                                             <input id="alamat" type="text" class="form-control" name="alamat">
@@ -83,10 +83,7 @@
                                             <input id="no_telp" type="text" class="form-control" name="no_telp">
                                         </div>
                                     </div>
-
-
-
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <div class="form-group col-6">
                                             <label for="password" class="d-block">Password</label>
                                             <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
@@ -102,7 +99,7 @@
                                     </div>
 
                                     <!-- upload KTP and SIU -->
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <div class="form-group col-6">
                                             <label for="file_ktp" class="d-block">Upload KTP</label>
                                             <input id="file_ktp" type="file" class="form-control" name="file_ktp">
@@ -112,7 +109,7 @@
                                             <input id="file_siu" type="file" class="form-control" name="file_siu">
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <div class="form-group col-12">
                                             <label for="file_lainnya" class="d-block">Upload Berkas Lainnya</label>
                                             <input id="file_lainnya" type="file" class="form-control" name="file_lainnya">
@@ -125,6 +122,10 @@
                                         </button>
                                     </div>
                                 </form>
+                                <!-- Register link -->
+                                <div class="text-center">
+                                    <p>Already have an account? <a href="<?= BASEURL ?>/auth/login">Login here</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
