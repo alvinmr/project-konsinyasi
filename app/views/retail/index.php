@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-secondary" href="Login.html">
+                        <a class="btn btn-outline-secondary" href="<?= BASEURL?>/auth/logout">
                             <i class="bi bi-door-closed"></i> Logout
                         </a>
                     </li>
@@ -333,93 +333,6 @@
                                 </div>
                             </div>
                             <!-- Modal Penutup History -->
-                        </div>
-                    </div>
-                </div>
-                <!-- Verifikasi Retail -->
-                <div class="col-lg-4 col-xxl-4 mb-5">
-                    <div class="card bg-light border-0 h-100">
-                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
-                                <i class="bi bi-patch-check"></i>
-                            </div>
-                            <h2 class="fs-4 fw-bold">Verifikasi Retail</h2>
-                            <p class="mb-2">Unggah berkas untuk verifikasi retailmu disini</p>
-                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalVer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z" />
-                                </svg>
-                                Verifikasi
-                            </button>
-                            <div class="modal fade" id="exampleModalVer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                Verifikasi
-                                            </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="container">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="retailName">Nama Retail:</label>
-                                                        <input type="text" class="form-control" id="retailName" placeholder="Masukkan nama retail" required />
-                                                        <div class="invalid-feedback">
-                                                            Please fill out this field.
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="retailAddress">Alamat Retail:</label>
-                                                        <input type="text" class="form-control" id="retailAddress" placeholder="Masukkan alamat retail" required />
-                                                        <div class="invalid-feedback">
-                                                            Please fill out this field.
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="email">Alamat Email:</label>
-                                                        <input type="email" class="form-control" id="email" placeholder="Masukkan alamat email" required />
-                                                        <div class="invalid-feedback">
-                                                            Please fill out this field.
-                                                        </div>
-                                                    </div>
-                                                    <!-- Tambahkan elemen-elemen berikut sesuai kebutuhan -->
-                                                    <div class="form-group">
-                                                        <label for="businessLicense">Surat Izin Usaha:</label>
-                                                        <input type="file" class="form-control-file" id="businessLicense" accept=".pdf,.doc,.docx" required />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="ownerID">KTP Pemilik Retail:</label>
-                                                        <input type="file" class="form-control-file" id="ownerID" accept=".pdf,.doc,.docx" required />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="phoneNumber">Nomor HP:</label>
-                                                        <input type="text" class="form-control" id="phoneNumber" placeholder="Masukkan nomor HP" required />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="file">Unggah Berkas:</label>
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="file" accept=".pdf,.doc,.docx" required />
-                                                            <label class="custom-file-label" for="file">Pilih Berkas</label>
-                                                        </div>
-                                                    </div>
-                                                    <div id="statusMessage" class="form-group"></div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Tutup
-                                            </button>
-                                            <button type="submit" class="btn btn-success" onclick="verifyRetail()">
-                                                Verifikasi
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

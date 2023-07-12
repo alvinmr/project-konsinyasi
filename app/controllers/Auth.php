@@ -39,7 +39,7 @@ class Auth extends Controller {
             $_SESSION['role'] = 'distributor';
             $_SESSION['nama'] = 'Distributor';
             Flasher::setFlash('Berhasil', 'Berhasil Login Distributor', 'success');
-            header('Location: ' . BASEURL . '/home');
+            header('Location: ' . BASEURL . '/distributor');
             exit;
         }else {
             $retail = $this->model('Retail_model')->findByEmail($email);
@@ -56,7 +56,7 @@ class Auth extends Controller {
                     $_SESSION['nama'] = $retail['nama_retail'];
                     $_SESSION['id'] = $retail['id_retail'];
                     Flasher::setFlash('Berhasil', 'Berhasil Login Retail', 'success');
-                    header('Location: ' . BASEURL . '/home');
+                    header('Location: ' . BASEURL . '/retail');
                     exit;
                 }else {
                     Flasher::setFlash('Gagal', 'Password Salah', 'error');
@@ -79,8 +79,6 @@ class Auth extends Controller {
         $nama = $_POST['nama'];
         $alamat = $_POST['alamat'];
         $no_telp = $_POST['no_telp'];
-        $file_ktp = $_FILES['file_ktp'];
-        $file_siu = $_FILES['file_siu'];
         
 
         // cek email sudah terdaftar atau belum
