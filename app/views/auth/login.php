@@ -61,16 +61,16 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">
                             <div class="card-body py-5 px-md-5">
-                                <form>
+                                <form action="<?= BASEURL ?>/auth/loginProcess" method="POST">
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3" class="form-control" />
+                                        <input type="email" name="email" id="form3Example3" class="form-control" />
                                         <label class="form-label" for="form3Example3">Email address</label>
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4" class="form-control" />
+                                        <input type="password" name="password" id="form3Example4" class="form-control" />
                                         <label class="form-label" for="form3Example4">Password</label>
                                     </div>
 
@@ -82,7 +82,7 @@
 
                                 <!-- Register link -->
                                 <div class="text-center">
-                                    <p>Don't have an account? <a href="https://bpwl1-kus.pocari.id/kel6/Projek/Register.php">Register</a></p>
+                                    <p>Don't have an account? <a href="<?= BASEURL ?>/auth/register">Register</a></p>
                                 </div>
                             </div>
                         </div>
@@ -92,9 +92,9 @@
         </div>
         <!-- Jumbotron -->
     </section>
-    <!-- Section: Design Block -->
-    <section class="">
-    </section>
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
+    <!-- JS Libraies -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php Flasher::flash(); ?>
 </body>

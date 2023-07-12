@@ -90,7 +90,7 @@ class Auth extends Controller {
         }
 
         // cek file ktp
-        $ekstensiKtp = ['jpg', 'jpeg', 'png'];
+        $ekstensiKtp = ['jpg', 'jpeg', 'png', 'pdf'];
         $namaFileKtp = $_FILES['file_ktp']['name'];
         $ekstensiFileKtp = explode('.', $namaFileKtp);
         $ekstensiFileKtp = strtolower(end($ekstensiFileKtp));
@@ -101,12 +101,23 @@ class Auth extends Controller {
         }
 
         // cek file siu
-        $ekstensiSiu = ['jpg', 'jpeg', 'png'];
+        $ekstensiSiu = ['jpg', 'jpeg', 'png', 'pdf'];
         $namaFileSiu = $_FILES['file_siu']['name'];
         $ekstensiFileSiu = explode('.', $namaFileSiu);
         $ekstensiFileSiu = strtolower(end($ekstensiFileSiu));
         if(!in_array($ekstensiFileSiu, $ekstensiSiu)){
             Flasher::setFlash('Gagal', 'Ekstensi File SIU Tidak Diperbolehkan', 'error');
+            header('Location: ' . BASEURL . '/auth/register');
+            exit;
+        }
+
+        // cek file lainnya
+        $ekstensiLainnya = ['jpg', 'jpeg', 'png', 'pdf'];
+        $namaFileLainnya = $_FILES['file_lainnya']['name'];
+        $ekstensiFileLainnya = explode('.', $namaFileLainnya);
+        $ekstensiFileLainnya = strtolower(end($ekstensiFileLainnya));
+        if(!in_array($ekstensiFileLainnya, $ekstensiLainnya)){
+            Flasher::setFlash('Gagal', 'Ekstensi File Lainnya Tidak Diperbolehkan', 'error');
             header('Location: ' . BASEURL . '/auth/register');
             exit;
         }
@@ -123,6 +134,12 @@ class Auth extends Controller {
         $namaFileSiuBaru .= $ekstensiFileSiu;
         move_uploaded_file($_FILES['file_siu']['tmp_name'], 'siu/' . $namaFileSiuBaru);
 
+        // upload file lainnya
+        $namaFileLainnyaBaru = uniqid();
+        $namaFileLainnyaBaru .= '.';
+        $namaFileLainnyaBaru .= $ekstensiFileLainnya;
+        move_uploaded_file($_FILES['file_lainnya']['tmp_name'], 'lainnya/' . $namaFileLainnyaBaru);
+
         $data = [
             'email' => $email,
             'password' => $password,
@@ -131,6 +148,7 @@ class Auth extends Controller {
             'no_telp' => $no_telp,
             'ktp' => $namaFileKtpBaru,
             'siu' => $namaFileSiuBaru,
+            'berkas_lainnya' => $namaFileLainnyaBaru,
         ];
         $this->model('Retail_model')->create($data);
         Flasher::setFlash('Berhasil', 'Berhasil Register', 'success');

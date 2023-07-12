@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-secondary" href="Login.html">
+                        <a class="btn btn-outline-secondary" href="<?= BASEURL ?>/auth/logout">
                             <i class="bi bi-door-closed"></i> Logout
                         </a>
                     </li>
