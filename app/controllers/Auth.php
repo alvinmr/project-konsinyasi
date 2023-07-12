@@ -45,7 +45,7 @@ class Auth extends Controller {
             $retail = $this->model('Retail_model')->findByEmail($email);
             if($retail){
                 if($retail['password'] == $password){
-                    if($retail['status'] == 0 || $retail['status'] == 2){
+                    if($retail['is_verified'] != 1 ){
                         Flasher::setFlash('Gagal', 'Akun Belum Diverifikasi', 'error');
                         header('Location: ' . BASEURL . '/auth/login');
                         exit;
