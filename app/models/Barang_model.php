@@ -25,6 +25,13 @@ class Barang_model {
         $this->db->execute();
     }
 
+    // find id
+    function find($id) {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id_barang = :id');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
     function update($data) {
         $query = "UPDATE barang SET nama_barang = :nama_barang, harga_satuan = :harga_satuan, stok = :stok, total_harga = :total_harga WHERE id_barang = :id";
         $this->db->query($query);

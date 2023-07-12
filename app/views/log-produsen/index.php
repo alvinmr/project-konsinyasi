@@ -26,7 +26,6 @@
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
-                                <!-- check if not found -->
                                 <?php foreach ($data['log_produsen'] as $log_produsen) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>

@@ -22,7 +22,7 @@ class VerifikasiRetail extends Controller {
         $data['id'] = $id;
         $this->model('Retail_model')->terima($data);
         Flasher::setFlash('Verifikasi Retail', 'Diterima', 'success');
-        header('Location: ' . BASEURL . '/verifikasiRetail');
+        header('Location: ' . BASEURL . '/distributor');
         exit;
     }
 
@@ -30,8 +30,8 @@ class VerifikasiRetail extends Controller {
     {
         $data['id'] = $id;
         $this->model('Retail_model')->tolak($data);
-        Flasher::setFlash('Verifikasi Retail', 'Ditolak', 'danger');
-        header('Location: ' . BASEURL . '/verifikasiRetail');
+        Flasher::setFlash('Verifikasi Retail', 'Ditolak', 'error');
+        header('Location: ' . BASEURL . '/distributor');
         exit;
     }
 }

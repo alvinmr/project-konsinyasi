@@ -10,10 +10,13 @@ class Retail extends Controller {
     }
     public function index()
     {
-        $data['judul'] = 'Retail';
+        $data['judul'] = 'Home';
+        $data['barang'] = $this->model('Barang_model')->all();
         $data['retail'] = $this->model('Retail_model')->all();
-        $this->view('templates/header', $data);
+        $data['req_barang'] = $this->model('ReqBarang_model')->all();
+        $data['log_produsen'] = $this->model('LogProdusen_model')->all();
+        $this->view('retail/header', $data);
         $this->view('retail/index', $data);
-        $this->view('templates/footer');
+        $this->view('retail/footer');
     }
 }

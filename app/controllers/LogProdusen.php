@@ -32,7 +32,7 @@ class LogProdusen extends Controller {
         $this->model('LogProdusen_model')->create($data);
         // set flash message
         Flasher::setFlash('Sukses', 'Data berhasil ditambahkan', 'success');
-        header('location: ' . BASEURL . '/logProdusen');
+        header('location: ' . BASEURL . '/distributor');
         
         $this->view('templates/header');
     }
@@ -53,7 +53,7 @@ class LogProdusen extends Controller {
         ];
         $this->model('LogProdusen_model')->update($data);
         Flasher::setFlash('Sukses', 'Data berhasil diupdate', 'success');
-        header('location: ' . BASEURL . '/logProdusen');
+        header('location: ' . BASEURL . '/distributor');
         
         $this->view('templates/header');
     }
@@ -63,7 +63,7 @@ class LogProdusen extends Controller {
         $id = explode('/', $_GET['url'])[2];
         $this->model('LogProdusen_model')->delete($id);
         Flasher::setFlash('Sukses', 'Data berhasil dihapus', 'success');
-        header('location: ' . BASEURL . '/logProdusen');
+        header('location: ' . BASEURL . '/distributor');
         
         $this->view('templates/header');
     }

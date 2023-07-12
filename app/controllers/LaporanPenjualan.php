@@ -28,7 +28,7 @@ class LaporanPenjualan extends Controller
     public function tambah()
     {
         $data = $_FILES['file_laporan'];
-        $ekstensiValid = ['pdf'];
+        $ekstensiValid = ['pdf', 'doc', 'docx'];
 
         // upload
         $namaFile = $data['name'];
@@ -38,34 +38,23 @@ class LaporanPenjualan extends Controller
 
         // cek apakah tidak ada file yang diupload
         if ($data['error'] === 4) {
-            Flasher::setFlash('Gagal', 'Tidak ada file yang diupload', 'danger');
-            header('Location: ' . BASEURL . '/laporanPenjualan');
+            Flasher::setFlash('Gagal', 'Tidak ada file yang diupload', 'error');
+            header('Location: ' . BASEURL . '/retail');
             exit;
-        }
-
-        // check apakah file sebelumnya sudah ada
-        $cek = $this->model('Retail_model')->find($_SESSION['id']);
-        if ($cek['laporan_penjualan'] != null) {
-            unlink('laporan_penjualan/' . $cek['laporan_penjualan']);
         }
 
         // cek ekstensi file
         if (!in_array($ekstensiFile, $ekstensiValid)) {
-            Flasher::setFlash('Gagal', 'File yang diupload bukan pdf', 'danger');
-            header('Location: ' . BASEURL . '/laporanPenjualan');
+            Flasher::setFlash('Gagal', 'File yang diupload bukan pdf', 'error');
+            header('Location: ' . BASEURL . '/retail');
             exit;
         }
 
-        // generate nama file baru
-        $namaFileBaru = uniqid();
-        $namaFileBaru .= '.';
-        $namaFileBaru .= $ekstensiFile;
-
         // pindahkan file ke folder
-        move_uploaded_file($tmpName, 'laporan_penjualan/' . $namaFileBaru);
+        move_uploaded_file($tmpName, 'laporan_penjualan/' . $namaFile);
     
-        $this->model('Retail_model')->tambahLaporan($namaFileBaru);
+        $this->model('Retail_model')->uploadLaporan($namaFile);
         Flasher::setFlash('Berhasil', 'Laporan berhasil ditambahkan', 'success');
-        header('Location: ' . BASEURL . '/laporanPenjualan');
+        header('Location: ' . BASEURL . '/retail');
     }
 }

@@ -28,13 +28,30 @@ class ReqBarang_model {
         $query = "INSERT INTO $this->table 
         (id_retail, id_barang, jumlah_barang, harga, total_harga) 
         VALUES (:id_retail, :id_barang, :jumlah_barang, :harga, :total_harga)";
-        $this->db->query($query);
-        $this->db->bind('id_retail', $_SESSION['id']);
+        // check if stok barang is enough
+        $query1 = "SELECT stok FROM barang WHERE id_barang = :id_barang";
+        $this->db->query($query1);
         $this->db->bind('id_barang', $data['id_barang']);
-        $this->db->bind('jumlah_barang', $data['jumlah_barang']);
-        $this->db->bind('harga', $data['harga']);
-        $this->db->bind('total_harga', $data['total_harga']);
-        $this->db->execute();
+        $stok = $this->db->single();
+        if ($stok['stok'] < $data['jumlah_barang']) {
+            return false;
+        }else{
+            // decrease stok barang
+            $query2 = "UPDATE barang SET stok = stok - :jumlah_barang WHERE id_barang = :id_barang";
+            $this->db->query($query2);
+            $this->db->bind('id_barang', $data['id_barang']);
+            $this->db->bind('jumlah_barang', $data['jumlah_barang']);
+            $this->db->execute();
+            // insert req_barang
+            $this->db->query($query);
+            $this->db->bind('id_retail', $_SESSION['id']);
+            $this->db->bind('id_barang', $data['id_barang']);
+            $this->db->bind('jumlah_barang', $data['jumlah_barang']);
+            $this->db->bind('harga', $data['harga']);
+            $this->db->bind('total_harga', $data['total_harga']);
+            $this->db->execute();
+            return true;
+        }
     }
 
     function terima($data) {

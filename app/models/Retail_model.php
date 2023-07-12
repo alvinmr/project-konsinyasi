@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Retail_model {
+class Retail_model
+{
     private $table = 'retail';
     private $db;
 
@@ -11,8 +12,22 @@ class Retail_model {
 
     public function all()
     {
-        $this->db->query('SELECT * FROM ' . $this->table);
-        return $this->db->resultSet();
+        // select all data retail and get relation on laporan_retail table in one to many relationship
+        $this->db->query('SELECT *
+                      FROM retail');
+        $retails = $this->db->resultSet();
+
+        foreach ($retails as &$retail) {
+            $this->db->query('SELECT laporan_penjualan
+                          FROM laporan_retail
+                          WHERE id_retail = :id_retail');
+            $this->db->bind(':id_retail', $retail['id_retail']);
+            $laporan_retail = $this->db->resultSet();
+
+            $retail['laporan_retail'] = $laporan_retail;
+        }
+
+        return $retails;
     }
 
     // find by id
@@ -49,17 +64,6 @@ class Retail_model {
         return $this->db->single();
     }
 
-    // tambah data laporan
-    public function tambahLaporan($name)
-    {
-        $query = "UPDATE retail SET laporan_penjualan=:laporan_penjualan WHERE id_retail=:id_retail";
-        $this->db->query($query);
-        $this->db->bind('id_retail', $_SESSION['id']);
-        $this->db->bind('laporan_penjualan', $name);
-        $this->db->execute();
-        return $this->db->rowCount();
-    }
-
     // terima
     public function terima($data)
     {
@@ -81,5 +85,18 @@ class Retail_model {
         $this->db->execute();
         return $this->db->rowCount();
     }
-    
+
+    // upload laporan
+    public function uploadLaporan($data)
+    {
+        // insert into tabel laporan_retail
+        $query = "INSERT INTO laporan_retail
+        (id_retail, laporan_penjualan)
+        VALUES (:id_retail, :laporan_penjualan)";
+        $this->db->query($query);
+        $this->db->bind('id_retail', $_SESSION['id']);
+        $this->db->bind('laporan_penjualan', $data);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
 }

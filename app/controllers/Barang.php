@@ -27,9 +27,7 @@ class Barang extends Controller {
         $this->model('Barang_model')->create($data);
         // set flash message
         Flasher::setFlash('Sukses', 'Data berhasil ditambahkan', 'success');
-        header('location: ' . BASEURL . '/barang');
-        
-        $this->view('templates/header');
+        header('location: ' . BASEURL . '/distributor');
     }
 
     function update() {
@@ -43,17 +41,13 @@ class Barang extends Controller {
         ];
         $this->model('Barang_model')->update($data);
         Flasher::setFlash('Sukses', 'Data berhasil diupdate', 'success');
-        header('location: ' . BASEURL . '/barang');
-        
-        $this->view('templates/header');
+        header('location: ' . BASEURL . '/distributor');
     }
 
     function hapus() {
         $id = explode('/', $_GET['url'])[2];
         $this->model('Barang_model')->delete($id);
         Flasher::setFlash('Sukses', 'Data berhasil dihapus', 'success');
-        header('location: ' . BASEURL . '/barang');
-        
-        $this->view('templates/header');
+        header('location: ' . BASEURL . '/distributor');
     }
 }
