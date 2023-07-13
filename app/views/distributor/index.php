@@ -299,24 +299,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>dulur</td>
-                                                            <td>Susu Bear Brand</td>
-                                                            <td>3/Rp.10.000,00</td>
-                                                            <td>23/06/2023</td>
-                                                            <td>25/06/2023</td>
-                                                            <td>Rp.30.000,00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>haykal</td>
-                                                            <td>Indomie Goreng</td>
-                                                            <td>5/Rp.3.000,00</td>
-                                                            <td>30/06/2023</td>
-                                                            <td>3/07/2023</td>
-                                                            <td>Rp.15.000,00</td>
-                                                        </tr>
+                                                        <?php $i = 1; ?>
+                                                        <?php foreach ($data['history_barang'] as $item) : ?>
+                                                            <tr>
+                                                                <th scope="row"><?= $i; ?></th>
+                                                                <td><?= $item['nama_retail']; ?></td>
+                                                                <td><?= $item['nama_barang']; ?></td>
+                                                                <td><?= $item['jumlah_barang']; ?>@<?= $item['harga']; ?></td>
+                                                                <td><?= $item['tgl_kirim']; ?></td>
+                                                                <td><?= $item['tgl_terima'] ?? '-'; ?></td>
+                                                                <td><?= $item['total_harga']; ?></td>
+                                                            </tr>
+                                                            <?php $i++; ?>
+                                                        <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -548,6 +543,87 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4 col-xxl-4 mb-5">
+                    <div class="card border-0 h-80">
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4">
+                                <i class="bi bi-box-seam"></i>
+                            </div>
+                            <h2 class="fs-4 fw-bold">Kirim Barang</h2>
+                            <p class="mb-2">Kirim barang yang telah kamu setujui ke retailmu.</p>
+                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalKirimBarang">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+                                    <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"></path>
+                                </svg>
+                                Input
+                            </button>
+                            <!-- Modal Kirim Barang -->
+                            <div class="modal fade" id="modalKirimBarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                Daftar Barang dikirim
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="<?= BASEURL ?>/barang/kirim" method="POST">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="namaRetail">Nama Retail:</label>
+                                                    <select class="form-select" name="id_retail" aria-label="Default select example" required>
+                                                        <option selected>Pilih Retail</option>
+                                                        <?php foreach ($data['retail'] as $key => $value) : ?>
+                                                            <option value="<?= $value['id_retail']; ?>"><?= $value['nama_retail']; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <!-- looping barang -->
+                                                    <label for="namaBarang">Nama Barang:</label>
+                                                    <select class="form-select select-barang" name="id_barang[]" aria-label="Default select example" multiple>
+                                                        <!-- <option selected>Pilih Barang</option> -->
+                                                        <?php foreach ($data['barang'] as $key => $value) : ?>
+                                                            <option value="<?= $value['id_barang']; ?>"><?= $value['nama_barang']; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <!-- Tambahkan placeholder untuk jumlah barang dengan id yang unik -->
+                                                <div id="placeholderJumlahBarang"></div>
+
+                                                <div class="form-group">
+                                                    <label for="requestDate">Tanggal Kirim:</label>
+                                                    <input type="date" class="form-control" name="tgl_kirim" id="requestDate" placeholder="Masukkan Tanggal Retail" value="2023-07-12" required="">
+                                                </div>
+                                                <!-- status kirim -->
+                                                <div class="form-group">
+                                                    <!-- looping barang -->
+                                                    <label for="status">Status:</label>
+                                                    <select class="form-select select2" name="status" aria-label="Default select example">
+                                                        <option value="0">Belum Dikirim</option>
+                                                        <option value="1">Sudah Dikirim</option>
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDaftarKirimBarang">
+                                                        Daftar Barang
+                                                    </button>
+                                                    <button type="submit" class="btn btn-success">
+                                                        Input
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- Akhir Modal Kirim Barang -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -602,6 +678,77 @@
         </div>
     </div>
     <!-- Akhir Modal Daftar Barang -->
+
+    <!-- Modal Daftar Kirim Barang -->
+    <div class="modal fade" id="modalDaftarKirimBarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Daftar Kirim Barang
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table id="historyDistributor" class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama Retail</th>
+                                    <th scope="col">Nama Barang</th>
+                                    <th scope="col">Jumlah Barang@Harga</th>
+                                    <th scope="col">Tanggal Kirim</th>
+                                    <th scope="col">Total Harga</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no = 1; ?>
+                                <?php foreach ($data['transaksi'] as $item) : ?>
+                                    <tr>
+                                        <th scope="row"><?= $no++; ?></th>
+                                        <td><?= $item['nama_retail'] ?></td>
+                                        <td>
+                                            <!-- concat nama barang from transaksi_detail -->
+                                            <?php $namaBarang = array(); ?>
+                                            <?php foreach ($item['transaksi_detail'] as $detail) : ?>
+                                                <?php if ($detail['id_transaksi'] == $item['id_transaksi']) : ?>
+                                                    <?php $namaBarang[] = $detail['nama_barang']; ?>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                            <?= implode(', ', $namaBarang); ?>
+                                        </td>
+                                        <td>
+                                            <!-- concat jumlah barang from transaksi_detail -->
+                                            <?php $jumlahBarang = array(); ?>
+                                            <?php foreach ($item['transaksi_detail'] as $detail) : ?>
+                                                <?php if ($detail['id_transaksi'] == $item['id_transaksi']) : ?>
+                                                    <?php $jumlahBarang[] = $detail['jumlah_barang'] . '@' . $detail['harga_satuan']; ?>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                            <?= implode(', ', $jumlahBarang); ?>
+                                        </td>
+
+                                        <td><?= $item['tgl_kirim'] ?></td>
+                                        <td>Rp. <?= $item['total_harga'] ?></td>
+                                        <td>
+                                            <?php if ($item['status'] == 0) : ?>
+                                                <span class="badge bg-danger">Belum Dikirim</span>
+                                            <?php else : ?>
+                                                <span class="badge bg-success">Sudah Dikirim</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Akhir Modal Daftar Kirim Barang -->
 
     <!-- Modal Barang -->
     <?php $i = 1; ?>

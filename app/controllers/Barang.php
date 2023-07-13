@@ -50,4 +50,11 @@ class Barang extends Controller {
         Flasher::setFlash('Sukses', 'Data berhasil dihapus', 'success');
         header('location: ' . BASEURL . '/distributor');
     }
+
+    // kirim barang
+    function kirim() {
+        $this->model('Transaksi_model')->create();
+        Flasher::setFlash('Sukses', 'Data berhasil dikirim', 'success');
+        header('location: ' . BASEURL . '/distributor');
+    }
 }

@@ -1,7 +1,7 @@
 <?php 
 
 class HistoryBarang_model {
-    private $table = 'transaksi';
+    private $table = 'history_barang';
     private $db;
 
     public function __construct()
@@ -17,29 +17,12 @@ class HistoryBarang_model {
         return $this->db->resultSet();
     }
 
-    function create($data) {
-        // TODO: insert data to req_barang table
-        // $query = "INSERT INTO $this->table (nama_barang, harga_satuan, stok, total_harga) VALUES (:nama_barang, :harga_satuan, :stok, :total_harga)";
-        // $this->db->query($query);
-        // $this->db->bind('nama_barang', $data['nama_barang']);
-        // $this->db->bind('harga_satuan', $data['harga_satuan']);
-        // $this->db->bind('stok', $data['stok']);
-        // $this->db->bind('total_harga', $data['total_harga']);
-        // $this->db->execute();
-    }
-
-    function terima($data) {
-        $query = "UPDATE $this->table SET is_accepted = 1 WHERE id_req_barang = :id";
-        $this->db->query($query);
-        $this->db->bind('id', $data['id']);
-        $this->db->execute();
-    }
-
-    function tolak($data) {
-        $query = "UPDATE $this->table SET is_accepted = 2 WHERE id_req_barang = :id";
-        $this->db->query($query);
-        $this->db->bind('id', $data['id']);
-        $this->db->execute();
+    // find
+    public function find($name)
+    {
+        $this->db->query("SELECT * FROM $this->table WHERE nama_retail = :nama_retail");
+        $this->db->bind(':nama_retail', $name);
+        return $this->db->resultSet();
     }
 
 }

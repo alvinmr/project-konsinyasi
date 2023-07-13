@@ -4,7 +4,7 @@ class Auth extends Controller {
     public function login()
     {
         if(isset($_SESSION['email']) && isset($_SESSION['password'])){
-            header('Location: ' . BASEURL . '/home');
+            header('Location: ' . BASEURL . '/distributor');
             exit;
         }
 
@@ -15,7 +15,7 @@ class Auth extends Controller {
     public function register()
     {
         if(isset($_SESSION['email']) && isset($_SESSION['password'])){
-            header('Location: ' . BASEURL . '/home');
+            header('Location: ' . BASEURL . '/distributor');
             exit;
         }
 

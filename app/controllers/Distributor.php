@@ -15,6 +15,8 @@ class Distributor extends Controller {
         $data['retail'] = $this->model('Retail_model')->all();
         $data['req_barang'] = $this->model('ReqBarang_model')->all();
         $data['log_produsen'] = $this->model('LogProdusen_model')->all();
+        $data['transaksi'] = $this->model('Transaksi_model')->all();
+        $data['history_barang'] = $this->model('HistoryBarang_model')->all();
         $this->view('distributor/header', $data);
         $this->view('distributor/index', $data);
         $this->view('distributor/footer');

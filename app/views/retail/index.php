@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-secondary" href="<?= BASEURL?>/auth/logout">
+                        <a class="btn btn-outline-secondary" href="<?= BASEURL ?>/auth/logout">
                             <i class="bi bi-door-closed"></i> Logout
                         </a>
                     </li>
@@ -304,22 +304,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <th scope="row">1</th>
-                                                            <td>Susu Bear Brand</td>
-                                                            <td>3/Rp.10.000,00</td>
-                                                            <td>23/06/2023</td>
-                                                            <td>25/06/2023</td>
-                                                            <td>Rp.30.000,00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th scope="row">2</th>
-                                                            <td>Indomie Goreng</td>
-                                                            <td>5/Rp.3.000,00</td>
-                                                            <td>30/06/2023</td>
-                                                            <td>3/07/2023</td>
-                                                            <td>Rp.15.000,00</td>
-                                                        </tr>
+                                                        <?php $i = 1; ?>
+                                                        <?php foreach ($data['history_barang'] as $item) : ?>
+                                                            <tr>
+                                                                <th scope="row"><?= $i; ?></th>
+                                                                <td><?= $item['nama_retail']; ?></td>
+                                                                <td><?= $item['nama_barang']; ?></td>
+                                                                <td><?= $item['jumlah_barang']; ?>@<?= $item['harga']; ?></td>
+                                                                <td><?= $item['tgl_kirim']; ?></td>
+                                                                <td><?= $item['tgl_terima'] ?? '-'; ?></td>
+                                                                <td><?= $item['total_harga']; ?></td>
+                                                            </tr>
+                                                            <?php $i++; ?>
+                                                        <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
